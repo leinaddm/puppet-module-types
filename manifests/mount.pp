@@ -20,8 +20,7 @@ define types::mount (
   validate_absolute_path($name)
 
   # ensure target exists
-  include common
-  common::mkdir_p { $name: }
+  utils::dir_tree { $name: }
 
   # Solaris cannot handle 'defaults' as a mount option. A common use case would
   # be to have NFS exports specified in Hiera for multiple systems and if the
@@ -45,6 +44,6 @@ define types::mount (
     provider    => $provider,
     remounts    => $remounts,
     target      => $target,
-    require     => Common::Mkdir_p[$name],
+    require     => Utils::Dir_tree[$name],
   }
 }
